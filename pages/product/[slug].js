@@ -1,11 +1,14 @@
+import { useContext } from 'react';
+import { useRouter } from 'next/router'
 import Image from 'next/image';
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import Layout from '../../components/Layout'
 import data from '../../utils/data';
+import { Store } from '../../utils/Store';
 
 export default function ProductScreen() {
+  const { state, dispatch } = useContext(Store);
   const { query } = useRouter();
   const { slug } = query;
   const product = data.products.find(prod => prod.slug === slug);
@@ -14,6 +17,21 @@ export default function ProductScreen() {
     return (
       <div>Produto não encontrado</div>
     )
+  }
+
+  const addToCartHandler = () => {
+    const existItem = state.cart.cartItems.find(item => item.slug === product.slug);
+    const qtd = existItem ? existItem.quantity + 1 : 1;
+
+    if (product.countInStock < qtd) {
+      alert('Sinto muito, não temos este produto em estoque.');
+      return;
+    }
+
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: qtd }
+    })
   }
 
   return (
@@ -57,7 +75,7 @@ export default function ProductScreen() {
               <div>Estoque</div>
               <div>{ product.countInStock > 0 ? 'Disponível' : 'Indisponível' }</div>
             </div>
-            <button className='primary-button w-full'>
+            <button className='primary-button w-full' onClick={addToCartHandler}>
               Adicionar ao carrinho
             </button>
           </div>
