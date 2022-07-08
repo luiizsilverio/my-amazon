@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import Image from 'next/image';
 import Link from 'next/link'
 
@@ -9,7 +9,8 @@ import { Store } from '../../utils/Store';
 
 export default function ProductScreen() {
   const { state, dispatch } = useContext(Store);
-  const { query } = useRouter();
+  const router = useRouter();
+  const { query } = router;
   const { slug } = query;
   const product = data.products.find(prod => prod.slug === slug);
 
@@ -32,6 +33,8 @@ export default function ProductScreen() {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity: qtd }
     })
+
+    router.push('/cart');
   }
 
   return (
