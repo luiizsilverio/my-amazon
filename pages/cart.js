@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic'
+
 import { XCircleIcon } from '@heroicons/react/outline'
 import { Store } from '../utils/Store';
 import Layout from '../components/Layout';
 import { useRouter } from 'next/router';
 
-export default function CartScreen() {
+function CartScreen() {
   const router = useRouter()
   const { state, dispatch } = useContext(Store);
   const { cart: { cartItems } } = state;
+
 
   const removeItemHandler = (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
@@ -113,3 +116,6 @@ export default function CartScreen() {
     </Layout>
   )
 }
+
+export default dynamic(() => Promise.resolve(CartScreen), {ssr: false});
+
