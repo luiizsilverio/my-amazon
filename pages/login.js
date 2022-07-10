@@ -1,13 +1,39 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
 import Layout from "../components/Layout";
-import { useForm } from "react-hook-form"
+import { getError } from '../utils/error';
 
 export default function LoginScreen() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { data: session } = useSession();
+  const router = useRouter();
+  const { redirect } = router.query;
 
-  const submitHandler = ({email, password}) => {
-
+  const submitHandler = async({ email, password }) => {
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      })
+      if (result.error) {
+        toast.error(result.error);
+      }
+    } catch (err) {
+        toast.error(getError(err));
+    }
   }
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push(redirect || '/');
+    }
+  }, [router, session, redirect])
 
   return (
     <Layout title="Login">

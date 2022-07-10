@@ -26,7 +26,7 @@ async function disconnect() {
       await mongoose.disconnect();
       connection.isConnected = false;
     } else {
-      console.log('BD não conectado.');
+      console.log('BD desconectado com sucesso.');
     }
   }
 }
