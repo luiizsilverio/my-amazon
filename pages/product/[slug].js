@@ -2,31 +2,40 @@ import { useContext } from 'react';
 import { Router, useRouter } from 'next/router'
 import Image from 'next/image';
 import Link from 'next/link'
+import { toast } from "react-toastify";
+import axios from 'axios';
 
 import Layout from '../../components/Layout'
-import data from '../../utils/data';
 import { Store } from '../../utils/Store';
+import db from '../../utils/db';
+import Product from '../../models/Product';
+// import data from '../../utils/data';
 
-export default function ProductScreen() {
+export default function ProductScreen(props) {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
-  const { query } = router;
-  const { slug } = query;
-  const product = data.products.find(prod => prod.slug === slug);
+  const { product } = props;
+
+  // const { query } = router;
+  // const { slug } = query;
+  // const product = data.products.find(prod => prod.slug === slug);
 
   if (!product) {
     return (
-      <div>Produto não encontrado</div>
+      <Layout title="Produto não encontrado">
+        Produto não encontrado
+      </Layout>
     )
   }
 
-  const addToCartHandler = () => {
+  const addToCartHandler = async() => {
     const existItem = state.cart.cartItems.find(item => item.slug === product.slug);
     const qtd = existItem ? existItem.quantity + 1 : 1;
 
-    if (product.countInStock < qtd) {
-      alert('Sinto muito, não temos este produto em estoque.');
-      return;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+
+    if (data.countInStock < qtd) {
+      return toast.error('Sorry, não temos este produto em estoque.');
     }
 
     dispatch({
@@ -87,3 +96,20 @@ export default function ProductScreen() {
     </Layout>
   )
 }
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null
+    }
+  }
+}
+
+// products: products.map(prod => db.convertDocToObj(prod))

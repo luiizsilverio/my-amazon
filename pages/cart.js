@@ -2,6 +2,8 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic'
+import { toast } from "react-toastify";
+import axios from 'axios';
 
 import { XCircleIcon } from '@heroicons/react/outline'
 import { Store } from '../utils/Store';
@@ -18,9 +20,18 @@ function CartScreen() {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   }
 
-  const updateCartHandler = (item, qtd) => {
+  const updateCartHandler = async (item, qtd) => {
     const quantity = Number(qtd);
+
+    const { data } = await axios.get(`/api/products/${item._id}`);
+
+    if (data.countInStock < qtd) {
+      return toast.error('Sorry, não temos este produto em estoque.');
+    }
+
     dispatch({ type: 'CART_ADD_ITEM', payload: {...item, quantity}})
+
+    toast.success('Quantidade atualizada no carrinho');
   }
 
   return (
