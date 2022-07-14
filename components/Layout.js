@@ -46,7 +46,7 @@ export default function Layout({ title, children }) {
             flex h-12 justify-between shadow-md items-center px-4
           `}>
             <Link href="/">
-              <a className="text-lg font-bold">
+              <a className="text-xl font-bold">
                 My-Amazon
               </a>
             </Link>

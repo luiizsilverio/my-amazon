@@ -16,6 +16,7 @@ export default function PaymentScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(selectedPaymentMethod)
 
     if (!selectedPaymentMethod) {
       return toast.error('Método de pagamento não informado');
@@ -29,6 +30,8 @@ export default function PaymentScreen() {
         paymentMethod: selectedPaymentMethod,
       })
     )
+
+    router.push('/placeorder');
   }
 
   useEffect(() => {
@@ -42,7 +45,7 @@ export default function PaymentScreen() {
     <Layout title={ checkout_steps[2] }>
       <CheckoutWizard activeStep={2} />
       <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
-        <h1 className="mb-4 text-xl">{ checkout_steps[2] }</h1>
+        <h1 className="mb-4 text-xl font-semibold">{ checkout_steps[2] }</h1>
         {
           ['PayPal', 'Stripe', 'CashOnDelivery'].map((payment) => (
             <div key={ payment } className="mb-4">

@@ -53,7 +53,7 @@ export default function ShippingScreen() {
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">{ checkout_steps[1] }</h1>
+        <h1 className="mb-4 text-xl font-semibold">{ checkout_steps[1] }</h1>
         <div className="mb-4">
           <label htmlFor="fullName">Nome completo</label>
           <input id="fullName" className="w-full"
