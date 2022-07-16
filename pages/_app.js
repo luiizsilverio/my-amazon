@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import { StoreProvider } from '../utils/Store';
 import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={session}>
       <StoreProvider>
         {Component.auth? (
           <Auth>
@@ -20,14 +20,12 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
-
 function Auth({ children }) {
   const router = useRouter();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push('/unauthorized?message=Faça Login');
+      router.push('/unauthorized?message=login required');
     }
   })
   if (status === 'loading') {
@@ -35,3 +33,5 @@ function Auth({ children }) {
   }
   return children;
 }
+
+export default MyApp
