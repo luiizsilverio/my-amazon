@@ -7,20 +7,28 @@ import { toast } from "react-toastify";
 
 import Layout from "../components/Layout";
 import { getError } from '../utils/error';
+import axios from "axios";
 
-export default function LoginScreen() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+export default function RegisterScreen() {
+  const { register, handleSubmit, getValues, formState: { errors } } = useForm();
   const { data: session } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
 
-  const submitHandler = async({ email, password }) => {
+  const submitHandler = async({ name, email, password }) => {
     try {
+      await axios.post('/api/auth/signup', {
+        name,
+        email,
+        password
+      })
+
       const result = await signIn('credentials', {
         redirect: false,
         email,
         password,
       })
+
       if (result.error) {
         toast.error(result.error);
       }
@@ -36,14 +44,25 @@ export default function LoginScreen() {
   }, [router, session, redirect])
 
   return (
-    <Layout title="Login">
+    <Layout title="Criar Conta">
       <form className="mx-auto max-w-screen"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Login</h1>
+        <h1 className="mb-4 text-xl">Criar Conta</h1>
+        <div className="mb-4">
+          <label htmlFor="email">Nome</label>
+          <input type="text" id="name" className="w-full" autoFocus
+            {...register('name', {
+              required: 'Digite o nome',
+            })}
+          />
+          {errors.email &&
+            <div className="text-red-500">{errors.name.message}</div>
+          }
+        </div>
         <div className="mb-4">
           <label htmlFor="email">E-mail</label>
-          <input type="email" id="email" className="w-full" autoFocus
+          <input type="email" id="email" className="w-full"
             {...register('email', {
               required: 'Digite o e-mail',
               pattern: {
@@ -61,7 +80,7 @@ export default function LoginScreen() {
           <input type="password" id="password" className="w-full"
             {...register('password', {
               required: 'Digite a senha',
-              minLength: { value: 5, message: 'Digite ao menos 5 letras' }
+              minLength: { value: 6, message: 'Digite senha acom mais de 5 letras' }
             })}
           />
           {errors.password &&
@@ -69,13 +88,22 @@ export default function LoginScreen() {
           }
         </div>
         <div className="mb-4">
-          <button className="primary-button">Login</button>
+          <label htmlFor="confirmPassword">Confirme a Senha</label>
+          <input type="password" id="confirmPassword"
+            className="w-full"
+            {...register('confirmPassword', {
+              required: 'Digite a senha',
+              validate: (value) => value === getValues('password'),
+              minLength: { value: 6, message: 'Digite senha com mais de 5 letras' }
+            })}
+          />
+          {errors.confirmPassword &&
+            errors.confirmPassword.type === 'validate' && (
+              <div className="text-red-500">Senhas não conferem</div>
+            )}
         </div>
         <div className="mb-4">
-          Não possui uma conta? &nbsp;
-          <Link href={`/register?redirect=${redirect || '/'}`}>
-            Cadastre-se
-          </Link>
+          <button className="primary-button">Confirma</button>
         </div>
       </form>
     </Layout>
