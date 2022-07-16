@@ -40,7 +40,7 @@ export default function LoginScreen() {
       <form className="mx-auto max-w-screen"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Login</h1>
+        <h1 className="mb-4 text-xl font-semibold">Login</h1>
         <div className="mb-4">
           <label htmlFor="email">E-mail</label>
           <input type="email" id="email" className="w-full" autoFocus

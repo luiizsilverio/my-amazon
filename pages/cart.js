@@ -36,7 +36,7 @@ function CartScreen() {
 
   return (
     <Layout title="Meu Carrinho">
-      <h1 className="mb-4 text-xl">Meu Carrinho</h1>
+      <h1 className="mb-4 text-xl font-semibold">Meu Carrinho</h1>
       {
         cartItems.length === 0
           ? (
