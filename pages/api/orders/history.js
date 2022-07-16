@@ -1,4 +1,3 @@
-import { decodeBase64 } from "bcryptjs";
 import { getSession } from "next-auth/react";
 import Order from "../../../models/Order";
 import db from "../../../utils/db";
