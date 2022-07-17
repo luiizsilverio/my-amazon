@@ -1,4 +1,4 @@
-# MY-AMAZON 🛒🛒🛒
+# MY-AMAZON 🛒💲
 
 ## Conteúdo
 * [Sobre o Projeto](#sobre-o-projeto)
@@ -9,8 +9,8 @@
 * [Contato](#email-contato)
 
 ## Sobre o projeto
-Aplicação de E-commerce desenvolvida durante o curso [Nextjs ECommerce Tutorial For Beginners 2022 [Next.js, MongoDB & Tailwind](https://www.youtube.com/watch?v=_IBlyR5mRzA), do canal Coding with Basir.<br />
-Desenvolvida em React/Next, com autenticação Next-Auth, banco de dados MongoDB Atlas, React-hook-form e TailwindCSS.<br />
+Aplicação de E-commerce desenvolvida durante o curso [Nextjs ECommerce Tutorial For Beginners 2022 - Next.js, MongoDB & Tailwind](https://www.youtube.com/watch?v=_IBlyR5mRzA), do canal Coding with Basir.<br />
+Desenvolvida em React / Next, com autenticação Next-Auth, banco de dados MongoDB Atlas, React-hook-form e TailwindCSS.<br />
 
 
 ## :hammer_and_wrench: Tecnologias
