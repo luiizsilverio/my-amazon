@@ -4,14 +4,11 @@ import db from "../../../utils/db";
 
 const handler = async (req, res) => {
   const session = await getSession({ req });
-
-/*
   if (!session) {
     return res.status(401).send('signin required');
   }
-*/
 
-  const user = session ? session.user : req?.user;
+  const { user } = session;
 
   await db.connect();
 
@@ -21,7 +18,7 @@ const handler = async (req, res) => {
   })
 
   const order = await newOrder.save();
-  await db.disconnect();
+  // await db.disconnect();
   res.status(201).send(order);
 }
 

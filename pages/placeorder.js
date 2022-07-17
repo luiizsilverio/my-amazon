@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic'
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -19,7 +18,6 @@ function PlaceOrderScreen() {
   const { cartItems, shippingAddress, paymentMethod } = cart;
   const [loading, setLoading] = useState(false);
   const router = useRouter()
-  const { data: session } = useSession();
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
@@ -43,7 +41,6 @@ function PlaceOrderScreen() {
         shippingPrice,
         taxPrice,
         totalPrice,
-        user: session?.user
       })
 
       setLoading(false);
