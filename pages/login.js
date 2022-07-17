@@ -61,7 +61,7 @@ export default function LoginScreen() {
           <input type="password" id="password" className="w-full"
             {...register('password', {
               required: 'Digite a senha',
-              minLength: { value: 5, message: 'Digite ao menos 5 letras' }
+              minLength: { value: 6, message: 'Digite ao menos 6 letras' }
             })}
           />
           {errors.password &&

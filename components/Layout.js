@@ -80,7 +80,7 @@ export default function Layout({ title, children }) {
                             `}>
                               <Menu.Item>
                                 <DropdownLink href="/profile" className="dropdown-link">
-                                  Sua Conta
+                                  Minha Conta
                                 </DropdownLink>
                               </Menu.Item>
                               <Menu.Item>

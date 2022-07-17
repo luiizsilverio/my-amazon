@@ -96,6 +96,9 @@ export default function RegisterScreen() {
               minLength: { value: 6, message: 'Digite senha com mais de 5 letras' }
             })}
           />
+          {errors.confirmPassword && (
+            <div className="text-red-500">{errors.confirmPassword.message}</div>
+          )}
           {errors.confirmPassword &&
             errors.confirmPassword.type === 'validate' && (
               <div className="text-red-500">Senhas não conferem</div>
