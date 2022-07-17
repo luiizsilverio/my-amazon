@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MY-AMAZON 🛒🛒🛒
 
-## Getting Started
+## Conteúdo
+* [Sobre o Projeto](#sobre-o-projeto)
+* [Tecnologias](#hammer_and_wrench-tecnologias)
+* [Screenshots](#camera_flash-screenshots)
+* [Iniciando a Aplicação](#car-Iniciando-a-aplicação)
+* [Licença](#balance_scale-licença)
+* [Contato](#email-contato)
 
-First, run the development server:
+## Sobre o projeto
+Aplicação de E-commerce desenvolvida durante o curso [Nextjs ECommerce Tutorial For Beginners 2022 [Next.js, MongoDB & Tailwind](https://www.youtube.com/watch?v=_IBlyR5mRzA), do canal Coding with Basir.<br />
+Desenvolvida em React/Next, com autenticação Next-Auth, banco de dados MongoDB Atlas, React-hook-form e TailwindCSS.<br />
 
+
+## :hammer_and_wrench: Tecnologias
+* __React / Next__
+* __Mongoose__ para banco de dados
+* __React-Hook-Form__ para formulários
+* __TailwindCSS__ para estilização
+* __Axios__
+* __React-Toastify__
+* __Heroicons__ para ícones
+* __Js-Cookie__ para armazenar cookies
+
+## :camera_flash: Screenshots
+![](https://github.com/luiizsilverio/my-amazon/blob/main/public/my-amazon.gif)
+
+
+## :car: Iniciando a aplicação
+Baixe o repositório com git clone e entre na pasta do projeto.
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone https://github.com/luiizsilverio/my-amazon
+
+# Instale as dependências
+$ yarn
+
+# Para iniciar a aplicação na porta 3000
+$ yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## :balance_scale: Licença
+Este projeto está licenciado sob a [licença MIT](LICENSE).
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## :email: Contato
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+E-mail: [**luiiz.silverio@gmail.com**](mailto:luiiz.silverio@gmail.com)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
