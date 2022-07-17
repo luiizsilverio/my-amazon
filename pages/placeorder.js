@@ -48,7 +48,7 @@ function PlaceOrderScreen() {
       dispatch({ type: 'CART_CLEAR_ITEMS' });
 
       Cookies.set(
-        'my-amazon:cart',
+        'myamazon.cart',
         JSON.stringify({
           ...cart,
           cartItems: []

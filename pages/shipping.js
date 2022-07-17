@@ -28,7 +28,7 @@ export default function ShippingScreen() {
       payload
     })
 
-    Cookies.set('my-amazon:cart',
+    Cookies.set('myamazon.cart',
       JSON.stringify({
         ...cart,
         shippingAddress: payload

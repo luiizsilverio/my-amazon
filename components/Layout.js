@@ -21,7 +21,7 @@ export default function Layout({ title, children }) {
   }, [cart.cartItems])
 
   const logoutHandler = () => {
-    Cookies.remove('my-amazon:cart')
+    Cookies.remove('myamazon.cart')
     dispatch({ type: 'CART_RESET' });
     signOut({ callbackUrl: '/login' });
   }
