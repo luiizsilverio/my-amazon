@@ -1,23 +1,21 @@
-// import { getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Order from "../../../models/Order";
 import db from "../../../utils/db";
 
 const handler = async (req, res) => {
-/*
-  // nao esta funcionando na Vercel...
-  // para resolver, estou enviando o user na requisição
   const session = await getSession({ req });
+/*
   if (!session) {
     return res.status(401).send('signin required');
   }
-  const { user } = session;
 */
+  const user = session ? session.user : req?.user;
 
   await db.connect();
 
   const newOrder = new Order({
     ...req.body,
-    // user: user._id
+    user: user._id
   })
 
   const order = await newOrder.save();

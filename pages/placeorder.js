@@ -33,7 +33,6 @@ function PlaceOrderScreen() {
 
   const placeOrderHandler = async () => {
     try {
-      alert(JSON.stringify(session ? session.user : {}));
       setLoading(true);
 
       const { data } = await axios.post('/api/orders', {
@@ -44,7 +43,7 @@ function PlaceOrderScreen() {
         shippingPrice,
         taxPrice,
         totalPrice,
-        user: session?.user?._id
+        user: session?.user
       })
 
       setLoading(false);
