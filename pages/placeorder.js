@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import dynamic from 'next/dynamic'
 import { toast } from "react-toastify";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -11,7 +12,7 @@ import CheckoutWizard, { checkout_steps } from "../components/CheckoutWizard";
 import { Store } from "../utils/Store";
 import { getError } from "../utils/error";
 
-export default function PlaceOrderScreen() {
+function PlaceOrderScreen() {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const { cartItems, shippingAddress, paymentMethod } = cart;
@@ -192,4 +193,5 @@ export default function PlaceOrderScreen() {
   )
 }
 
+export default dynamic(() => Promise.resolve(PlaceOrderScreen), {ssr: false});
 PlaceOrderScreen.auth = true;
