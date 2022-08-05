@@ -6,6 +6,7 @@ import axios from "axios";
 
 import Layout from "../../components/Layout";
 import { getError } from "../../utils/error";
+import StripeContainer from "../../components/StripeContainer";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -33,7 +34,14 @@ function OrderScreen() {
   const { query } = useRouter();
   const orderId = query.id;
 
-  const [{ order, loading, error }, dispatch] = useReducer(reducer, {
+  const [{
+    order,
+    loading,
+    error,
+    successPay,
+    loadingPay,
+    errorPay
+  }, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
     error: ''
@@ -44,6 +52,20 @@ function OrderScreen() {
     itemsPrice, taxPrice, shippingPrice, totalPrice,
     isPaid, paidAt, isDelivered, deliveredAt,
   } = order;
+
+
+  function handlePayment(e) {
+    e.preventDefault();
+  }
+
+  // function createOrder() {
+  //   const { data } = await axios.put(
+  //     `/api/orders/${order._id}/pay`, details
+  //   ) 4:36
+
+  //   dispatch({ type: 'PAY_SUCCESS', payload: data });
+  //   dispatch({ type: 'PAY_FAIL', payload: getError(error) });
+  // }
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -173,6 +195,18 @@ function OrderScreen() {
               </li>
             </ul>
           </div>
+
+          {!isPaid && paymentMethod === "Stripe" && (
+            <>
+              <StripeContainer
+                orderId={order._id}
+                name={shippingAddress.fullName}
+                amount={order.totalPrice}
+              />
+              {loadingPay && <div>Aguarde...</div>}
+            </>
+          )}
+
         </div>
       </div>
     )

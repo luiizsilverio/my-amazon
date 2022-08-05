@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react';
 import { Menu } from '@headlessui/react';
 import Cookies from 'js-cookie';
@@ -46,9 +47,17 @@ export default function Layout({ title, children }) {
             flex h-12 justify-between shadow-md items-center px-4
           `}>
             <Link href="/">
-              <a className="text-xl font-bold">
+              <div className='flex items-center cursor-pointer'>
+              <Image
+                width={52} height={52}
+                src="/logo.png"
+                alt="Logo"
+              />
+              &nbsp;
+              <a className="text-2xl font-bold mb-1 text-slate-600">
                 My-Amazon
               </a>
+              </div>
             </Link>
             <div>
               <Link href="/cart">

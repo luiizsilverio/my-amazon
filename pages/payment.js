@@ -16,7 +16,6 @@ export default function PaymentScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(selectedPaymentMethod)
 
     if (!selectedPaymentMethod) {
       return toast.error('Método de pagamento não informado');
