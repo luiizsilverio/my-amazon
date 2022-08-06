@@ -1,4 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const CARD_OPTIONS = {
 	iconStyle: "solid",
@@ -18,7 +20,7 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm({ orderId, name, amount }) {
+export default function PaymentForm({ orderId, name, amount, onPay }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -38,25 +40,27 @@ export default function PaymentForm({ orderId, name, amount }) {
       try {
         const { id: cardId } = paymentMethod
 
-        const response = await axios.put(`/api/orders/${orderiD}/pay`, {
+        const response = await axios.put(`/api/orders/${orderId}/pay`, {
           orderId,
           cardId,
           name,
-          amount: +amount * 100,
+          amount
         })
 
         if (response.data.success) {
-          console.log("Pagamento efetuado com sucesso");
-          setSuccess(true);
+          toast.success("Pagamento efetuado com sucesso");
+          onPay(true, response.data.order);
         }
 
       } catch (error) {
+        toast.error("Erro ao efetuar pagamento.");
         console.warn("Erro:", error);
-        setSuccess(false);
+        onPay(false, null);
       }
     } else {
-      console.warn("Erro:", error.message);
-      setSuccess(false);
+        toast.error("Erro ao efetuar pagamento.");
+        console.warn("Erro:", error.message);
+        onPay(false, null);
     }
   }
 

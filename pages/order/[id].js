@@ -54,18 +54,13 @@ function OrderScreen() {
   } = order;
 
 
-  function handlePayment(e) {
-    e.preventDefault();
+  function onPay(success, order) {
+    if (success) {
+      dispatch({ type: 'PAY_SUCCESS', payload: data });
+    } else {
+      dispatch({ type: 'PAY_FAIL', payload: getError(error) });
+    }
   }
-
-  // function createOrder() {
-  //   const { data } = await axios.put(
-  //     `/api/orders/${order._id}/pay`, details
-  //   ) 4:36
-
-  //   dispatch({ type: 'PAY_SUCCESS', payload: data });
-  //   dispatch({ type: 'PAY_FAIL', payload: getError(error) });
-  // }
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -202,6 +197,7 @@ function OrderScreen() {
                 orderId={order._id}
                 name={shippingAddress.fullName}
                 amount={order.totalPrice}
+                onPay={onPay}
               />
               {loadingPay && <div>Aguarde...</div>}
             </>
