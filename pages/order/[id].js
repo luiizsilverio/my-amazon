@@ -110,7 +110,11 @@ function OrderScreen() {
               isPaid ? (
                 <>
                   <div className="w-full alert-success">Pago em {paidAt}</div>
-                  <a target="_blank" href={paymentResult.url} className="flex alert-success">
+                  <a target="_blank"
+                    rel="noreferrer"
+                    href={paymentResult.url}
+                    className="flex alert-success"
+                  >
                     <PrinterIcon className="h-6 w-6"></PrinterIcon>
                     Visualizar
                   </a>
