@@ -20,7 +20,7 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm({ orderId, name, amount, onPay }) {
+export default function PaymentForm({ orderId, name, amount, onPay, startPay }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -28,6 +28,8 @@ export default function PaymentForm({ orderId, name, amount, onPay }) {
     e.preventDefault();
 
     if (!stripe || !elements) return;
+
+    startPay();
 
     const cardElement = elements.getElement(CardElement);
 

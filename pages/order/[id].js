@@ -1,5 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { useRouter } from "next/router";
+import { PrinterIcon } from '@heroicons/react/outline'
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -19,11 +20,9 @@ function reducer(state, action) {
     case 'PAY_REQUEST':
       return { ...state, loadingPay: true };
     case 'PAY_SUCCESS':
-      return { ...state, loadingPay: false, successPay: true };
+      return { ...state, loadingPay: false, successPay: true, order: action.payload };
     case 'PAY_FAIL':
-      return { ...state, loadingPay: false, errorPay: action.payload  };
-    case 'PAY_RESET':
-      return { ...state, loadingPay: false, successPay: false, errorPay: '' };
+      return { ...state, loadingPay: false, successPay: false };
     default:
       return state;
   }
@@ -38,9 +37,7 @@ function OrderScreen() {
     order,
     loading,
     error,
-    successPay,
     loadingPay,
-    errorPay
   }, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
@@ -50,13 +47,14 @@ function OrderScreen() {
   const {
     shippingAddress, paymentMethod, orderItems,
     itemsPrice, taxPrice, shippingPrice, totalPrice,
-    isPaid, paidAt, isDelivered, deliveredAt,
+    isPaid, paidAt, isDelivered, deliveredAt, paymentResult,
   } = order;
 
 
   function onPay(success, order) {
     if (success) {
-      dispatch({ type: 'PAY_SUCCESS', payload: data });
+      console.log(order)
+      dispatch({ type: 'PAY_SUCCESS', payload: order });
     } else {
       dispatch({ type: 'PAY_FAIL', payload: getError(error) });
     }
@@ -106,14 +104,22 @@ function OrderScreen() {
             <h2 className="mb-2 text-lg font-semibold">
               Método de Pagamento
             </h2>
+            <div className="flex items-center">
             <div>{ paymentMethod }</div>
             {
               isPaid ? (
-                <div className="alert-success">Pago em {paidAt}</div>
+                <>
+                  <div className="w-full alert-success">Pago em {paidAt}</div>
+                  <a target="_blank" href={paymentResult.url} className="flex alert-success">
+                    <PrinterIcon className="h-6 w-6"></PrinterIcon>
+                    Visualizar
+                  </a>
+                </>
               ) : (
-                <div className="alert-error">Não foi pago</div>
+                <div className="w-full alert-error">Não foi pago</div>
               )
             }
+            </div>
           </div>
 
           <div className="card overflow-x-auto p-5">
@@ -198,6 +204,7 @@ function OrderScreen() {
                 name={shippingAddress.fullName}
                 amount={order.totalPrice}
                 onPay={onPay}
+                startPay={() => dispatch({ type: 'PAY_REQUEST' })}
               />
               {loadingPay && <div>Aguarde...</div>}
             </>
