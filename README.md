@@ -10,7 +10,9 @@
 
 ## Sobre o projeto
 Aplicação de E-commerce desenvolvida durante o curso [Nextjs ECommerce Tutorial For Beginners 2022 - Next.js, MongoDB & Tailwind](https://www.youtube.com/watch?v=_IBlyR5mRzA), do canal Coding with Basir.<br />
-Desenvolvida em React / Next, com autenticação Next-Auth, banco de dados MongoDB Atlas, React-hook-form e TailwindCSS. Aplicação disponível [aqui](https://my-amazon-flame.vercel.app).<br />
+Desenvolvida em React / Next, com autenticação Next-Auth, banco de dados __MongoDB Atlas__, Pagamentos por meio da plataforma __Stripe__, __React-hook-form__ e __TailwindCSS__. <br />
+No vídeo, é mostrada a integração de pagamento com PayPal, mas resolvi alterar para Stripe por conta própria.<br />
+Aplicação disponível [aqui](https://my-amazon-flame.vercel.app).<br />
 
 
 ## :hammer_and_wrench: Tecnologias
