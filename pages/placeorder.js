@@ -176,7 +176,7 @@ function PlaceOrderScreen() {
                   </li>
                   <li>
                     <button
-                      disable={loading}
+                      disabled={loading}
                       onClick={placeOrderHandler}
                       className="primary-button w-full"
                     >
